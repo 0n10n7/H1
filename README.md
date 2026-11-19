@@ -1,10 +1,19 @@
 # Hållut
 
-Prototyp av en kollektivtrafikapp i SL-stil med en ny flik för **autonoma anropsstyrda bussar**.
-Övriga flikar (Sök resa, Avgångar, Biljetter, Trafikläget) är tomma platshållare.
+Prototyp av en kollektivtrafikapp i SL-stil där **autonoma anropsstyrda bussar** är en del av
+den vanliga reseplaneraren:
+
+1. **Sök resa** – från, till och när (åka nu eller välj datum och tid).
+2. **Reseförslag** – vanliga bussar blandas med bokningsbara autonoma bussar.
+3. **Bekräfta bokning** – välj ett autonomt förslag och boka.
+4. **Resan är bokad** – följ bussen live på kartan, med påstigningskod.
+
+Fliken **Karta** visar alla autonoma bussar just nu. **Biljetter**, **Mer** och **Trafikläget**
+är tomma platshållare.
 
 Ren Svelte 5-app byggd med Vite – ingen backend. Bussarna simuleras direkt i webbläsaren
-i [src/lib/autobuss.svelte.js](src/lib/autobuss.svelte.js).
+i [src/lib/autobuss.svelte.js](src/lib/autobuss.svelte.js) och reseförslagen tas fram i
+[src/lib/planner.js](src/lib/planner.js).
 
 ## Kom igång
 
@@ -41,9 +50,13 @@ oavsett vad repot heter.
 
 ## Simuleringen
 
-- 7 hållplatser och 3 förarlösa bussar i ett påhittat trafikområde i Barkarby.
-- Närmaste lediga buss skickas när du beställer. En resa går igenom
-  `to_pickup` → `boarding` → `riding` → `completed` (eller `cancelled`).
-- Andra simulerade resenärer beställer bussar ibland, men en buss lämnas alltid ledig åt dig.
-- Tiden går snabbare än i verkligheten (`SPEED` och `BOARDING_SECONDS` högst upp i filen).
+- 7 hållplatser, 3 vanliga busslinjer och 3 förarlösa bussar i ett påhittat trafikområde i
+  Barkarby ([src/lib/places.js](src/lib/places.js)).
+- Vanliga bussar föreslås bara om en linje går mellan hållplatserna. Autonoma bussar kan
+  bokas mellan alla hållplatser och är snabbare eftersom de kör direkt.
+- En resa går igenom `scheduled` → `to_pickup` → `boarding` → `riding` → `completed`
+  (eller `cancelled`). Resor som avgår inom 15 minuter får en buss direkt; senare resor
+  kan startas med knappen "Starta resan nu (demo)".
+- Andra simulerade resenärer bokar bussar ibland, men en buss lämnas alltid ledig åt dig.
+- Demotid: 1 sekund i simuleringen motsvarar 1 minut, så en resa tar under en minut att följa.
 - Allt ligger i minnet – laddar du om sidan börjar simuleringen om.

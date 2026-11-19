@@ -8,74 +8,49 @@
   {#each tabs as tab (tab.id)}
     <button
       class:active={tab.id === active}
-      class:new={tab.isNew}
       aria-current={tab.id === active ? 'page' : undefined}
       onclick={() => onselect(tab.id)}
     >
-      <span class="icon">
-        <Icon name={tab.icon} />
-        {#if tab.isNew}<span class="badge">Ny</span>{/if}
-      </span>
-      <span class="label">{tab.label}</span>
+      <Icon name={tab.icon} size={26} />
+      <span>{tab.label}</span>
     </button>
   {/each}
 </nav>
 
 <style>
   .tabbar {
-    position: sticky;
-    bottom: 0;
+    position: fixed;
+    left: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: min(408px, calc(100% - 24px));
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding-bottom: env(safe-area-inset-bottom);
-    background: #fff;
-    border-top: 1px solid var(--border);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: rgb(255 255 255 / 0.94);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.1);
   }
 
   button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    padding: 8px 2px 10px;
+    gap: 3px;
+    padding: 8px 4px;
     border: none;
+    border-radius: 24px;
     background: none;
     color: var(--muted);
-    font-size: 0.68rem;
-    cursor: pointer;
+    font-size: 0.8rem;
   }
 
   button.active {
-    color: var(--blue);
+    background: var(--accent-soft);
+    color: var(--accent);
     font-weight: 600;
-  }
-
-  .icon {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 30px;
-    border-radius: 999px;
-  }
-
-  button.active .icon {
-    background: var(--blue-light);
-  }
-
-  .badge {
-    position: absolute;
-    top: -4px;
-    right: -2px;
-    padding: 1px 5px;
-    border-radius: 999px;
-    background: var(--pink);
-    color: #fff;
-    font-size: 0.6rem;
-    font-weight: 700;
-  }
-
-  .label {
-    white-space: nowrap;
   }
 </style>

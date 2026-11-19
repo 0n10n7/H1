@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px 24px;
+    padding: 40px 24px;
     text-align: center;
     color: var(--muted);
   }
@@ -25,15 +25,15 @@
     place-items: center;
     width: 72px;
     height: 72px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     border-radius: 50%;
-    background: var(--blue-light);
-    color: var(--blue);
+    background: var(--accent-soft);
+    color: var(--accent);
   }
 
   h2 {
     margin: 0 0 6px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--text);
   }
 
